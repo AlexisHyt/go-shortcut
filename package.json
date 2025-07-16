@@ -1,6 +1,6 @@
 {
   "name": "go-shortcut",
-  "displayName": "Go shortcut",
+  "displayName": "Go",
   "version": "0.0.1",
   "description": "Go Shortcut inside Search Bar",
   "author": "AlexisH <azen0x.alexis@gmail.com>",
@@ -26,6 +26,13 @@
   "manifest": {
     "host_permissions": [
       "https://*/*"
-    ]
+    ],
+    "permissions": [
+      "omnibox",
+      "storage"
+    ],
+    "omnibox": {
+      "keyword": "go"
+    }
   }
 }

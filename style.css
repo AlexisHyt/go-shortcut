@@ -1,0 +1,213 @@
+/* Material Design inspired CSS */
+
+/* Base styles */
+:root {
+  --primary-color: #6200ee;
+  --primary-color-dark: #3700b3;
+  --primary-color-light: #bb86fc;
+  --secondary-color: #03dac6;
+  --background-color: #ffffff;
+  --surface-color: #ffffff;
+  --error-color: #b00020;
+  --text-primary: rgba(0, 0, 0, 0.87);
+  --text-secondary: rgba(0, 0, 0, 0.6);
+  --text-disabled: rgba(0, 0, 0, 0.38);
+  --border-color: rgba(0, 0, 0, 0.12);
+  --shadow-1: 0 2px 1px -1px rgba(0,0,0,0.2), 0 1px 1px 0 rgba(0,0,0,0.14), 0 1px 3px 0 rgba(0,0,0,0.12);
+  --shadow-2: 0 3px 1px -2px rgba(0,0,0,0.2), 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12);
+  --font-family: 'Roboto', 'Segoe UI', sans-serif;
+  --border-radius: 4px;
+}
+
+body {
+  font-family: var(--font-family);
+  color: var(--text-primary);
+  margin: 0;
+  padding: 0;
+  background-color: var(--background-color);
+}
+
+/* Layout classes */
+.container {
+  padding: 16px;
+  min-width: 320px;
+}
+
+.vertical-spacing {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+/* Typography */
+.heading {
+  font-size: 20px;
+  font-weight: 500;
+  margin-bottom: 16px;
+  color: var(--text-primary);
+}
+
+/* Form elements */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 8px;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+.form-label-text {
+  font-weight: 500;
+}
+
+.form-input {
+  height: 56px;
+  padding: 16px;
+  font-size: 16px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  background-color: var(--surface-color);
+  color: var(--text-primary);
+  transition: border-color 0.2s ease;
+  box-sizing: border-box;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 1px var(--primary-color);
+}
+
+.form-input::placeholder {
+  color: var(--text-disabled);
+}
+
+/* Button styles */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 36px;
+  padding: 0 16px;
+  border: none;
+  border-radius: var(--border-radius);
+  font-size: 14px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.button-primary {
+  background-color: var(--primary-color);
+  color: white;
+  box-shadow: var(--shadow-1);
+}
+
+.button-primary:hover {
+  background-color: var(--primary-color-dark);
+  box-shadow: var(--shadow-2);
+}
+
+.button-primary:active {
+  background-color: var(--primary-color-dark);
+}
+
+.button-secondary {
+  background-color: transparent;
+  color: var(--primary-color);
+  border: 1px solid var(--primary-color);
+  margin-top: 8px;
+}
+
+.button-secondary:hover {
+  background-color: rgba(98, 0, 238, 0.04);
+}
+
+.button-secondary:active {
+  background-color: rgba(98, 0, 238, 0.08);
+}
+
+.button-icon {
+  min-height: 32px;
+  width: 32px;
+  padding: 0;
+  margin: 0 4px;
+  border-radius: 50%;
+  background-color: transparent;
+  font-size: 16px;
+}
+
+.button-icon:hover {
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+/* Entries section */
+.entries-section {
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border-color);
+}
+
+.subheading {
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 12px;
+  color: var(--text-primary);
+}
+
+.no-entries-message {
+  color: var(--text-secondary);
+  font-size: 14px;
+  text-align: center;
+  padding: 16px 0;
+}
+
+.entries-list {
+  margin-top: 8px;
+}
+
+.entry-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  background-color: var(--surface-color);
+}
+
+.entry-details {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.entry-keyword {
+  font-weight: 500;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.entry-url {
+  font-size: 14px;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.entry-actions {
+  display: flex;
+  margin-left: 8px;
+}
