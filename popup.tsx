@@ -1,4 +1,4 @@
-import React, { useState, useEffect, type FormEvent, type FC } from "react"
+import React, { useState, useEffect, useRef, type FormEvent, type FC } from "react"
 import "./style.css"
 
 interface Entries {
@@ -11,6 +11,7 @@ const IndexPopup: FC = () => {
   const [entries, setEntries] = useState<Entries>({})
   const [editMode, setEditMode] = useState<boolean>(false)
   const [originalKeyword, setOriginalKeyword] = useState<string>("")
+  const fileInputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
     chrome.storage.local.get("entries", (result) => {
@@ -69,6 +70,56 @@ const IndexPopup: FC = () => {
     setUrl("")
     setEditMode(false)
     setOriginalKeyword("")
+  }
+  
+  const handleExport = (): void => {
+    const entriesJson = JSON.stringify(entries, null, 2)
+    const blob = new Blob([entriesJson], { type: 'application/json' })
+
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = `go-shortcut-export-${new Date().toISOString().split('T')[0]}.json`
+    document.body.appendChild(a)
+    a.click()
+
+    setTimeout(() => {
+      document.body.removeChild(a)
+      URL.revokeObjectURL(url)
+    }, 0)
+  }
+  
+  const handleImportClick = (): void => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click()
+    }
+  }
+  
+  const handleImport = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    const file = event.target.files?.[0]
+    if (!file) return
+    
+    const reader = new FileReader()
+    
+    reader.onload = (e) => {
+      try {
+        const importedEntries = JSON.parse(e.target?.result as string) as Entries
+
+        const updatedEntries: Entries = { ...entries, ...importedEntries }
+
+        setEntries(updatedEntries)
+        chrome.storage.local.set({ entries: updatedEntries })
+
+        if (fileInputRef.current) {
+          fileInputRef.current.value = ''
+        }
+      } catch (error) {
+        console.error('Error importing entries:', error)
+        alert('Error importing entries. Please make sure the file is a valid JSON export.')
+      }
+    }
+    
+    reader.readAsText(file)
   }
 
   return (
@@ -157,6 +208,33 @@ const IndexPopup: FC = () => {
           </div>
         )}
       </div>
+      
+      <div className="entries-section">
+        <h3 className="subheading">Import/Export</h3>
+        <div className="button-group vertical-spacing">
+          <button 
+            className="button button-primary full-width" 
+            onClick={handleExport}
+          >
+            Export All Entries
+          </button>
+          <button 
+            className="button button-secondary full-width" 
+            onClick={handleImportClick}
+          >
+            Import Entries From File
+          </button>
+          <input 
+            type="file" 
+            ref={fileInputRef} 
+            onChange={handleImport} 
+            accept=".json" 
+            style={{ display: 'none' }} 
+          />
+        </div>
+      </div>
+
+      <p className="signature">Made by <a href="https://alexishayat.me/" target="_blank">AlexisH</a> with ❤️</p>
     </div>
   )
 }

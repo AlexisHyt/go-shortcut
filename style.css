@@ -29,7 +29,7 @@ body {
 
 /* Layout classes */
 .container {
-  padding: 16px;
+  padding: 4px 16px 16px 16px;
   min-width: 320px;
 }
 
@@ -210,4 +210,9 @@ body {
 .entry-actions {
   display: flex;
   margin-left: 8px;
+}
+
+.signature {
+  text-align: center;
+  margin-top: 24px;
 }
