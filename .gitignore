@@ -31,3 +31,9 @@ dist/
 
 # typescript
 .tsbuildinfo
+
+# IDEs
+.vscode/
+.idea/
+
+pnpm-lock.yaml
