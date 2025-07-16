@@ -31,17 +31,13 @@ chrome.omnibox.onInputEntered.addListener((text) => {
     const entries = result.entries || {}
 
     if (entries[text]) {
-      chrome.tabs.create({
+      chrome.tabs.update({
         url: entries[text]
       })
     } else {
-      let url = text
-
-      if (!url.startsWith('http://') && !url.startsWith('https://')) {
-        url = 'https://' + url
-      }
+      let url = 'https://www.google.com/search?q=' + text
       
-      chrome.tabs.create({
+      chrome.tabs.update({
         url: url
       })
     }
